@@ -1,0 +1,233 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-tabs>
+
+    <ion-tab-bar slot="top">
+
+      <ion-tab-button tab="view-request" class="tab_button">
+        <ion-label style="font-size: 13px;">Requests</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="view-logs" class="tab_button">
+        <ion-label style="font-size: 13px;">Logs</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="view-status" class="tab_button">
+        <ion-label style="font-size: 13px;">Status</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+
+
+  </ion-tabs>
+
+
+  <!-- <ion-card>
+
+    <ion-card-header>
+      <h5 style="text-align: center;">Request Detail</h5>
+    </ion-card-header>
+
+    <ion-row class="header-row">
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        #
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Req Info
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        Data
+      </ion-col> 
+  
+    </ion-row>
+
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        1.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request ID
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_id}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        2.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request Title
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_title}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        3.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request Type
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_type}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        4.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request Initiator Id
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_initiator_id}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        5.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request sent on
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_date}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        6.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request Budget
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_budget}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        7.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request Description
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_description}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        8.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Request Status
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{req_status}}
+      </ion-col>      
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="2" size-md="4" size-lg="2" style="font-size: 10px;">
+        9.
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 10px;">
+        Last Approved By
+      </ion-col> 
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 10px;">
+        {{ last_approve }}
+      </ion-col>      
+
+    </ion-row>
+
+     <div class="row"
+    *ngIf="this.RequestService.viewReq.req_status === 'Pending'">
+
+    <div class="center">
+
+    </div>
+
+    </div> 
+    
+  
+
+  </ion-card> -->
+
+</ion-content>
+
+<ion-footer style="padding: 0%; text-align: center;">
+  
+  
+    <!-- <ion-button style="--background: rgb(95, 179, 17); width: 31%; padding: 0%;"
+     (click)="userDataService.Approved(req_id); this.userDataService.userRole; "
+     routerLink="/dashboard" 
+     *ngIf = "userDataService.toBeApproved && this.userDataService.userRole !== 1">Accept</ion-button>
+
+    <ion-button style="--background: rgb(212, 62, 16); width: 31%; padding: 0%;"
+     (click)="goToUpgrade()">Resend</ion-button> -->
+    
+    <ion-button style="--background: rgb(255, 153, 0); width: max-content; padding: 0%;" 
+     (click)='view(req_id,is_pnc)'>View Form</ion-button>
+  
+</ion-footer>

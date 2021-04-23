@@ -1,0 +1,80 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <h5 style="text-align: center; color: black; font-size: 22px;">Open Requests</h5>
+  
+  <ion-searchbar style="--clear-button-color:rgb(255, 153, 0); --icon-color:rgb(255, 153, 0);" placeholder="Search Title here.." [(ngModel)]="filterTerm" animated="true"></ion-searchbar>
+
+  <ion-card>
+
+    <ion-row class="header-row" id="card_backgound_request">
+
+      <ion-col  style="font-size: 18px; text-align: center; width: 50%; color: black; font-weight: bold;">
+        Requester NO.
+      </ion-col> 
+  
+      <ion-col  style="font-size: 18px; width: 50%;color: black; font-weight: bold;">
+        Request Type
+      </ion-col> 
+    
+    </ion-row>
+
+  </ion-card>
+
+
+  <ion-card *ngFor="let row of dataSource | filter: filterTerm ; let i = index;"
+  (click) = 'gotoOpen(row)'>
+
+    <!-- <ion-row *ngIf = "i % 2 === 0" id="card_backgound_request">   -->
+    <ion-row>
+
+      <ion-col size="6" style="font-size: 15px; text-align: center; width: 50%; color: black;">
+        {{ row.RUMPRequestNumber }}
+      </ion-col>
+  
+      <ion-col style="font-size: 15px; width: 50%; color: black;">
+        {{ row.RUMPRequestType }}
+      </ion-col>
+
+      <ion-col size="1" *ngIf = "row.UnreadStatus == 1"> 
+        <ion-icon name="mail-unread-outline" style="color: red;"></ion-icon>
+      </ion-col>
+  
+    </ion-row>
+
+
+    <!-- <ion-row *ngIf = "i % 2 === 1">
+
+      <ion-col size="6" style="font-size: 15px; text-align: center; width: 50%; color: black;">
+        {{ row.RUMPRequestNumber }}
+      </ion-col> 
+  
+      <ion-col  style="font-size: 15px; width: 50%; color: black;">
+        {{ row.RUMPRequestType }}
+      </ion-col>
+
+      <ion-col size="1" *ngIf = "row.UnreadStatus == 1"> 
+        <ion-icon name="mail-unread-outline" style="color: red;"></ion-icon>
+      </ion-col>
+
+  </ion-row> -->
+
+</ion-card>
+
+
+
+</ion-content>

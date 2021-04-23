@@ -1,0 +1,63 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="center">
+    <h6 style="font-size: 18px; font-weight: bold; margin-bottom: 30px; margin-top: 20px;">Request Action Form</h6>
+    </div>
+
+    <form ngNativeValidate #form = "ngForm" (ngSubmit) = "form.reset()"
+    action="#">
+      
+    <!-- (change)="onChangeCountry($event)" -->
+
+      <div id="itempassword">
+        <label for="inputdes">Select User</label>
+        
+          <select
+            class="form-control"
+            style="width: 100%; height: 50px;"
+            [(ngModel)]="selectedUser"
+            name="selectedUser"
+            required>
+
+            <option style="color: black;" *ngFor="let type of users1" [value]="type | json" >{{type.pickRUMPRoleDescription}}</option>
+
+          </select> 
+        </div>
+
+        
+
+        <div class="center">
+
+          <ion-button
+            style="width: 40%; margin-top: 20px;"
+            (click) = "navigateBack()">
+          Cancel</ion-button>
+
+          <ion-button 
+          style="--background: rgb(255, 153, 0); width: 40%; margin-top: 20px;"
+          (click) = "form.valid ? navigateTo() : null;"
+          >Select</ion-button>
+
+
+        </div>
+
+
+
+    </form>
+
+
+</ion-content>

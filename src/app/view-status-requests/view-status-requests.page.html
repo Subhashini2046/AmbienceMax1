@@ -1,0 +1,52 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-tabs>
+
+    <ion-tab-bar slot="top">
+
+      <ion-tab-button tab="view-request" class="tab_button">
+        <ion-label style="font-size: 13px;">Requests</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="view-logs" class="tab_button">
+        <ion-label style="font-size: 13px;">Logs</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="view-status" class="tab_button">
+        <ion-label style="font-size: 13px;">Status</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+
+
+  </ion-tabs>
+
+</ion-content>
+
+<ion-footer *ngIf="this.role_id==0 && this.status=='Closed'" style="padding: 0%; text-align: center;">
+  
+  
+  <!-- <ion-button style="--background: rgb(95, 179, 17); width: 31%; padding: 0%;"
+   (click)="userDataService.Approved(req_id); this.userDataService.userRole; "
+   routerLink="/dashboard" 
+   *ngIf = "userDataService.toBeApproved && this.userDataService.userRole !== 1">Accept</ion-button>
+
+  <ion-button style="--background: rgb(212, 62, 16); width: 31%; padding: 0%;"
+   (click)="goToUpgrade()">Resend</ion-button> -->
+  
+  <ion-button style="--background: rgb(255, 153, 0); width: max-content; padding: 0%;" 
+   (click)='view(req_id,is_pnc)'>View Form</ion-button>
+
+</ion-footer>

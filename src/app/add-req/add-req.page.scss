@@ -1,0 +1,48 @@
+
+
+  .bgimg{
+    --background:rgba(102, 0, 102, 0.1) ;
+    // --width: 100%;
+    // --height: 100%;
+    // --background: url('/assets/bgimg.png');
+    // background-repeat: repeat;
+    // background-size: 250px 100px;
+    // background-color:  rgba(86, 123, 146, 0.445);
+    // padding: 0px 0px 0px 0px;
+    // color: black;
+
+}
+
+#itempassword{
+  border-radius: 5px;
+  width: auto;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+ion-item.item-has-focus > ion-label{
+  color: rgb(235, 153, 0)  !important;
+}
+
+.center{
+    text-align: center;
+  }
+
+  #login-container{
+  
+    left: 0;
+    right: 0;
+    margin-left: 10% ; 
+    margin-right: 10% ;
+    box-shadow: 0px 4px 15px 1px gray;
+    padding: 15px 15px;
+    background: linear-gradient(to bottom, #000046, #1cb5e0);
+    border-radius: 5px;
+    opacity: 1;
+  }
+
+  #item{
+    border-radius: 5px;
+    width: auto;
+  }

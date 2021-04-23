@@ -1,0 +1,272 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list lines="full">
+
+    <ion-item >
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        #
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Req Info
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Data
+      </ion-col> 
+  
+    
+
+  </ion-item>
+
+  <ion-item class="item_background" >
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        1
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request No.
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ req_id }}
+      </ion-col>      
+
+    
+
+  </ion-item>
+
+  <ion-item>
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        2
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request Type
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ req_type }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+  <ion-item class="item_background">
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        3
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        ME Type
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ me_type }}
+      </ion-col>      
+
+    
+
+  </ion-item>
+
+  <ion-item>
+
+   
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        4
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        S/WON
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ req_swon }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+  <ion-item class="item_background">
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        5
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Budget Type
+      </ion-col> 
+
+      <ion-col size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ budget_type }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+  <ion-item >
+
+   
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        6
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Available Budget(INR)
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ available_budget }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+
+  <ion-item class="item_background">
+
+   
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        7
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Consumed Budget(INR)
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ consumed_budget }}
+      </ion-col>      
+
+    
+  </ion-item>
+
+  <ion-item>
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        8
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Balance Budget(INR)
+      </ion-col> 
+
+      <ion-col size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ balance_budget }}
+      </ion-col>      
+
+    
+
+  </ion-item>
+
+  <ion-item class="item_background">
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        9
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request Subject
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ req_subject }}
+      </ion-col>      
+
+  
+
+  </ion-item>
+
+  <ion-item>
+
+    <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+      10
+    </ion-col>  
+
+    <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+      Request Description
+    </ion-col> 
+
+    <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+      {{ req_description }}
+    </ion-col>      
+
+
+
+</ion-item>
+
+  <ion-item>
+
+    <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+      11
+    </ion-col> 
+
+    <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+      Comment
+    </ion-col> 
+
+    <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+      <ion-textarea
+            class="form-control"
+            name="comment"
+            placeholder="Write here"
+            [(ngModel)]="comment"
+            required>
+          </ion-textarea>
+    </ion-col>
+
+
+  </ion-item>
+    
+  </ion-list>
+
+  <div class="center" style="margin-bottom: 20px;">
+    <ion-button
+    style="--background: rgb(255, 153, 0); width: auto; margin-top: 20px;"
+    (click)="onSubmit()">
+      Resend For Change
+    </ion-button>
+  </div>
+  
+
+
+</ion-content>

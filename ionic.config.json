@@ -1,0 +1,7 @@
+{
+  "name": "AmbienceMax",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

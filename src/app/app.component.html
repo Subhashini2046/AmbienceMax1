@@ -1,0 +1,99 @@
+<ion-app>
+  <ion-menu type="push" side="start" menuId="dashboard" content-id="dashboard" [swipeGesture]="false" (ionWillOpen)="navigationFun()">
+    
+    <ion-header>
+      <ion-toolbar class="text-center">
+        
+        <img
+        (click)="makealert()"
+        style="margin-top: 10px;"
+        class="text-center"
+        [src]="image_url" 
+        width="100"
+        height="100"/>
+
+        <h5 style="color: white; font-size: 13px;" >{{ user_name }}</h5>
+        <h5 style="color: white; font-size: 13px">{{ current_user }}</h5>
+
+      </ion-toolbar>
+    </ion-header>
+
+  <ion-content>
+    <ion-list>
+      
+      <ion-menu-toggle button (click)="switchrole_key=1" style="color: white;">
+
+        <ion-item>
+          <ion-label style="color: white;">Switch Role</ion-label>
+          
+          <ion-select placeholder="" 
+          [(ngModel)]="selected_role"
+          (ionChange)="navigateToDashboard(selected_role)"
+          style="color: white;">
+
+          <ion-select-option *ngFor="let i of menus" 
+          [value]="i"
+          (click)="navigateToDashboard(i.role,i.space,i.sid,i.name,i.roledesc)" style="color: white;">
+          
+            {{getRoleName(i.name,i.roledesc)}}
+          
+          </ion-select-option>
+
+        </ion-select>
+
+        </ion-item>
+        
+
+      </ion-menu-toggle>
+
+      <!-- <ion-list *ngIf="switchrole_key" > -->
+        
+
+
+        <!-- <ion-menu-toggle>
+          <ion-item *ngFor="let i of menus" (click)="navigateToDashboard(i.role,i.space,i.sid,i.name,i.roledesc)" style="color: white; font-size: 14px;">
+            {{getRoleName(i.name,i.roledesc)}}
+          </ion-item>
+        </ion-menu-toggle> -->
+
+      <!-- </ion-list> -->
+
+
+      <ion-menu-toggle>
+        <ion-item  routerLink="/dashboard" style="color: white;">Dashboard</ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item routerLink="/add-req" style="color: white;">New Request</ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/pending-req" style="color: white;">Pending Requests</ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item  routerLink="/open-req" style="color: white;">Open Requests</ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/closed-req" style="color: white;">Closed Requests</ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/completed-req" style="color: white;">Completed Requests</ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item  routerLink="/all-request" style="color: white;">All Requests</ion-item>
+      </ion-menu-toggle>
+      
+      <ion-menu-toggle>
+        <ion-item  (click)="logout()" style="color: white;">Logout</ion-item>
+      </ion-menu-toggle>
+      
+    </ion-list> 
+  </ion-content>
+  
+  </ion-menu>
+
+  <ion-router-outlet id="dashboard"></ion-router-outlet>
+</ion-app>

@@ -1,0 +1,620 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+      <div class="center">
+      <h6 style="font-size: 18px; font-weight: bold; margin-bottom: 30px; margin-top: 20px;">Request Form</h6>
+      </div>
+
+      <form
+        ngNativeValidate #form = "ngForm" (ngSubmit) = "form.reset()"
+        action="#">
+
+      <div id="itempassword">
+      <label for="inputdes">Request Type</label>
+      
+        <select name="RequestType" 
+          class="form-control"
+          style="width: 100%; height: 50px;"
+          [(ngModel)]="currReq.req_type" 
+          [disabled]="(this.req_id)"
+          required>
+          <option selected>Choose...</option>
+          <option style="color: black;">Repair</option>
+          <option style="color: black;">Upgrade</option>
+          <option style="color: black;">Maintenance</option>
+        </select> 
+      </div>
+      
+      <div id="itempassword">
+        <label for="inputdes">ME Type</label>
+      <select name="METype" 
+          class="form-control"
+          style="width: 100%; height: 50px;"
+          [(ngModel)] = "currReq.me_type"
+          [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+          required>
+          <option selected>Select ME Type</option>
+          <option style="color: black;">Civil</option>
+          <option style="color: black;">Electrical </option>
+        </select> 
+      </div>
+
+
+      <ion-item id="itempassword" class="bgimg">
+        <ion-label position="floating">S/WON</ion-label>
+        <ion-input
+          type="text"
+          id="inputbudget"
+          class="form-control"
+          name="RequestSwon"
+          [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+          [(ngModel)] = "currReq.req_swon"
+          required >
+        </ion-input>
+      </ion-item>
+
+
+      <div id="itempassword">
+        <ion-label for="inputdes">Budget Type</ion-label>
+      <select name="budgetType" 
+          class="form-control" 
+          style="width: 100%; height: 50px;" 
+          [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+          [(ngModel)] = "currReq.budget_type" 
+          required>
+          <option selected>Select Budget Type</option>
+          <option style="color: black;">Capex</option>
+          <option style="color: black;">Opex </option>
+        </select> 
+      </div>
+
+
+      <ion-item id="itempassword" class="bgimg">
+        <ion-label position="floating">Available Budget(INR)</ion-label>
+        <ion-input
+          type="number"
+          id="inputbudget"
+          class="form-control"
+          name="availableBudget"
+          pattern="[0-9]+"
+          [min]="0"
+          [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+          [(ngModel)]= "currReq.available_budget"
+          required >
+        </ion-input>
+      </ion-item>
+
+      <ion-item id="itempassword" class="bgimg">
+        <ion-label position="floating">Consumed Budget(INR)</ion-label>
+        <ion-input
+          type="number"
+          id="inputbudget"
+          class="form-control"
+          name="consumedBudget"
+          pattern="[0-9]+"
+          [min]="0" 
+          [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+          [(ngModel)]= "currReq.consumed_budget" 
+          required >
+        </ion-input>
+      </ion-item>
+
+      <ion-item id="itempassword" class="bgimg">
+        <ion-label position="floating">Balance Budget(INR)</ion-label>
+        <ion-input
+          type="number"
+          id="inputbudget"
+          class="form-control"
+          name="balanceBudget"
+          pattern="[0-9]+"
+          [min]="0"
+          [(ngModel)]= "currReq.balance_budget"
+          [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+          required >
+        </ion-input>
+      </ion-item>
+
+      
+
+        
+        <!-- <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">Requester ID</ion-label>
+          <ion-input 
+            type="text"
+            id="inputid"
+            name="RequesterId"
+            class="form-control"
+            [(ngModel)] = "this.currReq.req_initiator_id"
+            #userId = "ngModel"
+            readonly
+            value="Readonly">
+          </ion-input>
+        </ion-item> -->
+        
+        
+        
+        <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">Request Subject</ion-label>
+          <ion-textarea
+            type="text"
+            class="form-control"
+            id="reqtitle"
+            name="ReqSubject"
+            (ngModelChange)="valueChange(subject)"
+            maxlength="250"
+            [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+            [(ngModel)]="subject"
+            required>
+          </ion-textarea>
+
+        </ion-item>
+        
+
+        <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">Request Description</ion-label>
+          <ion-textarea
+            class="form-control"
+            name="Requestdes"
+            maxlength="5000"
+            (ngModelChange)="valueChangeDiscription(description)"
+            [(ngModel)] = "description"
+            [disabled]="!(this.role_id == 0 && this.is_pnc==0)"
+            required>
+          </ion-textarea>
+
+        </ion-item>
+
+        <!-- <ion-item>
+          <ion-button 
+          style="--background: rgb(255, 255, 255); color: black;">
+            <ion-icon name="attach-sharp"></ion-icon>
+            <ion-label style="color: black; font-style: normal; font-weight: normal; font-variant: normal;">Attach file</ion-label>
+          </ion-button>
+        </ion-item> -->
+
+        <!-- <ion-item *ngIf="!((this.role_id == 0 && this.req_id) || this.role_id!=0)">
+
+          <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+
+          <ion-button (click)="onMultipleSubmit()">Upload</ion-button>
+
+        </ion-item>
+        <div class="alert alert-danger" role="alert" *ngIf="areCredentialsInvalid">
+            File Size should not be greater than 10MB.
+        </div> -->
+        
+        <!-- <div class="form-group" *ngIf="this.reqComment!=null">
+          <label for="reqdes">Last Provided Comment:</label>
+        <p class="form-control">{{this.reqComment}} </p>
+        </div> -->
+        <ion-list id="itempassword" class="form-group"  *ngIf="(this.req_id)">
+          <ion-label>Request Document</ion-label>
+          <br>
+          <ion-item *ngFor="let f1 of fileName,let i=index">
+          <ion-button style="width: fit-content; height: fit-content;" (click)="download(fileName[i])">
+            <ion-icon name="download-outline"></ion-icon>
+          </ion-button>
+          <ion-label> {{fileName[i]}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+        <ion-item id="itempassword" *ngIf="(!this.req_id)">
+
+        <ion-label for="fileUpload">Upload File Here</ion-label>
+          <ion-button mat-raised-button (click)="fileInput.click()">Select File</ion-button>
+
+          <div>
+
+          <input style="display: none" #attachments type="file" (change)="onFileChanged($event)" #fileInput
+            multiple="true">
+
+          </div>
+            
+        </ion-item >
+
+          <div id="itempassword" *ngFor="let selected of listOfFiles;let index = index">
+            <ion-row>
+            <ion-label style="margin-right: 2px;">
+              <h6>{{selected}}</h6>
+            </ion-label>
+            <ion-button style="width: min-content; height: min-content;" color="danger" (click)="removeSelectedFile(index)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-row>
+          </div>
+
+
+          <ion-label style="color: red;" *ngIf="areCredentialsInvalid && (!this.req_id)">
+            File Size should not be greater than 10MB.
+          </ion-label>
+
+
+      <div class="center" *ngIf="(!this.req_id)">
+        <ion-button type="submit"
+          style="--background: rgb(255, 153, 0); width: 40%; margin-top: 20px;"
+          (click) = "form.valid ? onSubmit() : null;" 
+          >Submit Request</ion-button>
+      </div>
+      
+      </form>
+
+
+      <!-- BOQ form -->
+      <div class="center" *ngIf="((this.boqDescription1!=null && this.boqDescription1!='') || this.role_id==3 || this.role_id==4)">
+        <h6 style="font-size: 18px; font-weight: bold; margin-bottom: 30px; margin-top: 20px;">Enter BOQ Details</h6>
+      </div>
+
+      <form *ngIf="((this.boqDescription1!=null && this.boqDescription1!='') || this.role_id==3 || this.role_id==4)"
+        ngNativeValidate #BOQform = "ngForm" (ngSubmit) = "BOQform.reset()"
+        action="#">
+
+        <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">BOQ Description</ion-label>
+          <ion-textarea
+            class="form-control"
+            name="boqDescription"
+            [(ngModel)] = "boqDescription"
+            [readonly]="(this.boqDescription1!=null && this.boqDescription1!='' && this.role_id!=3 && this.role_id!=4)"
+            required>
+          </ion-textarea>
+
+        </ion-item>
+
+        <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">BOQ Estimated Cost</ion-label>
+          <ion-input
+            type="number"
+            id="inputbudget"
+            class="form-control"
+            name="boqEstimatedCost"
+            pattern="[0-9]+"
+            [min]="1"
+            [(ngModel)]= "boqEstimatedCost"
+            [readonly]="(this.boqDescription1!=null && this.boqDescription1!='' && this.role_id!=3 && this.role_id!=4)"
+            required >
+          </ion-input>
+        </ion-item>
+
+        <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">BOQ Estimated Time</ion-label>
+          <ion-input
+            type="text"
+            id="inputbudget"
+            class="form-control"
+            name="boqEstimatedTime"
+            [(ngModel)] = "boqEstimatedTime"
+            [readonly]="(this.boqDescription1!=null && this.boqDescription1!='' && this.role_id!=3 && this.role_id!=4)"
+            required >
+          </ion-input>
+        </ion-item>
+
+        <ion-list id="itempassword" class="form-group"  *ngIf="(this.boqDescription1!=null && this.boqDescription1!='')">
+          <ion-label>BOQ Document</ion-label>
+          <br>
+          <ion-item *ngFor="let f1 of BoqfileName,let i=index">
+          <ion-button style="width: fit-content; height: fit-content;" (click)="download(BoqfileName[i])">
+            <ion-icon name="download-outline"></ion-icon>
+          </ion-button>
+          <ion-label> {{BoqfileName[i]}}</ion-label>
+        </ion-item>
+        </ion-list>
+
+
+        <ion-item id="itempassword" *ngIf="(this.role_id==3 || this.role_id==4)">
+
+          <ion-label for="fileUpload">Upload File Here</ion-label>
+            <ion-button mat-raised-button (click)="fileInput.click()">Select File</ion-button>
+  
+            <div>
+  
+            <input style="display: none" #attachments type="file" (change)="onFileChanged_boq($event)" #fileInput
+              multiple="true">
+  
+            </div>
+              
+            </ion-item>
+  
+            <div id="itempassword" *ngFor="let selected of listOfFiles_boq;let index = index">
+              <ion-row *ngIf="(this.role_id==3 || this.role_id==4)">
+              <ion-label style="margin-right: 2px;">
+                <h6>{{selected}}</h6>
+              </ion-label>
+              <ion-button style="width: min-content; height: min-content;" color="danger" (click)="removeSelectedFile_boq(index)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </ion-row>
+            </div>
+
+            <ion-label style="color: red;" *ngIf="areCredentialsInvalid_boq && (this.role_id==3 || this.role_id==4)">
+              File Size should not be greater than 10MB.
+            </ion-label>
+
+            <div class="center" *ngIf="(this.role_id==3 || this.role_id==4)">
+              <ion-button type="submit"
+                style="--background: rgb(255, 153, 0); width: 30%; margin-top: 20px;"
+                (click) = "BOQform.valid ? onBOQSubmit() : null;" 
+                >Submit BOQ</ion-button>
+
+            </div>
+
+
+      </form>
+
+<!--BOQ END-->
+
+<!--PNC Form-->
+
+<div class="center" *ngIf="(this.is_pnc==1 || this.actualCost!=null)">
+  <h6 style="font-size: 18px; font-weight: bold; margin-bottom: 30px; margin-top: 20px;">PNC & Vendor Tagging/Allocation</h6>
+</div>
+
+<form
+*ngIf="(this.is_pnc==1 || this.actualCost!=null)"
+  ngNativeValidate #PNCform = "ngForm" (ngSubmit) = "PNCform.reset()"
+  action="#">
+
+  <ion-row *ngIf="selectedSpoc>0" class="header-row">
+
+
+    <ion-col  style="font-size: 15px; text-align: center; width: 100%; color: black; font-weight: bold;">
+      Tagged Vendors
+    </ion-col> 
+
+
+  </ion-row>
+
+  <ion-row *ngIf="selectedSpoc>0">
+
+    <ion-col style="font-size: 15px; text-align: center; color: black;">
+      Select
+    </ion-col >
+
+
+    <ion-col style="font-size: 15px; text-align: center; width: 30%; color: black;">
+      Vender Name
+    </ion-col>
+
+    <ion-col style="font-size: 15px; text-align: center; width: 15%; color: black;">
+      Spoc 1
+    </ion-col>
+
+    <ion-col style="font-size: 15px; text-align: center; width: 15%; color: black;">
+      Spoc 2
+    </ion-col>
+
+    <ion-col style="font-size: 15px; text-align: center; width: 15%; color: black;">
+      Spoc 3
+    </ion-col>
+
+  </ion-row>
+
+  <ion-radio-group *ngIf="selectedSpoc>0" [(ngModel)]="pncvendorSelection" name="radio"
+    [disabled]="!(this.role_id==0 && this.is_pnc==1)|| (this.currReq.req_status=='Closed')">
+
+  <ion-row *ngFor="let element of dataSource; let i = index" >
+
+    <ion-col *ngIf="selectedSpoc>0" style="color:black; text-align: center;">
+
+      <ion-radio [value]=element [disabled]="!(this.role_id==0 && this.is_pnc==1)|| (this.currReq.req_status=='Closed')" ></ion-radio>
+
+    </ion-col>
+
+
+    <ion-col *ngIf="selectedSpoc>0" style="font-size: 15px; width: 30%; text-align: center; color: black;">
+      {{ element.venName }}
+    </ion-col>
+
+    <ion-col *ngIf="selectedSpoc>0" style="font-size: 15px; width: 15%; text-align: center; color: black;">
+      {{ element.venSpoc1 }}
+    </ion-col>
+
+    <ion-col *ngIf="selectedSpoc>0" style="font-size: 15px; width: 15%; text-align: center; color: black;">
+      {{ element.venSpoc2 }}
+    </ion-col>
+
+    <ion-col *ngIf="selectedSpoc>0" style="font-size: 15px; width: 15%; text-align: center; color: black;">
+      {{ element.venSpoc3 }}
+    </ion-col>
+
+  </ion-row>
+
+</ion-radio-group>
+
+  <ion-item *ngIf="selectedSpoc>0" id="itempassword" class="bgimg">
+    <ion-label position="floating">Allocated Days</ion-label>
+    <ion-input
+      type="number"
+      class="form-control"
+      name="allocatedDays"
+      [readonly]="!(this.role_id==0 && this.is_pnc==1)|| (this.currReq.req_status=='Closed')"
+      [(ngModel)] = "allocatedDays"
+      required>
+    </ion-input>
+
+  </ion-item>
+
+  <ion-item *ngIf="selectedSpoc>0" id="itempassword" class="bgimg">
+    <ion-label position="floating">Allocation Start Date</ion-label>
+    <ion-datetime 
+      displayFormate="DD MM YYYY" 
+      mode = "md"
+      pickerFormat="DD MM YYYY"
+      [disabled]="!(this.role_id==0 && this.is_pnc==1)"
+      [(ngModel)]="allocationStartDate" 
+      name="allocationStartDate">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item id="itempassword" class="bgimg">
+    <ion-label position="floating">Actual Cost</ion-label>
+    <ion-input
+      type="number"
+      id="inputbudget"
+      class="form-control"
+      name="actualCost"
+      [(ngModel)]="actualCost"
+      [readonly]="!(this.role_id==0 && this.is_pnc==1)|| (this.currReq.req_status=='Closed')"
+      required >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Download PNC Document</ion-label>
+  </ion-item>
+
+  <div class="form-group" *ngIf="reqPnc!=null">
+    <ion-button (click)="downloadFile(reqPnc)">
+      <ion-icon name="download-outline"></ion-icon>
+    </ion-button>
+    <label> {{reqPnc}}</label>
+    </div>
+
+    <ion-item>
+      <ion-label>Download Supporting Document</ion-label>
+    </ion-item>
+
+    <div *ngFor="let f1 of pncSupportingDoc,let i=index">
+      
+      <ion-button (click)="download(pncSupportingDoc[i])">
+        <ion-icon name="download-outline"></ion-icon>
+      </ion-button>
+      <label> {{pncSupportingDoc[i]}}</label>
+      </div>
+
+  <ion-item id="itempassword" *ngIf="(this.role_id==0 && this.is_pnc==1 && this.currReq.req_status!='Closed') && reqPnc==null">
+
+    <ion-label for="fileUpload">Upload File Here</ion-label>
+      <ion-button mat-raised-button (click)="fileInput.click()">Select File</ion-button>
+
+      <div>
+
+      <input style="display: none" #attachments type="file" (change)="onPncFile($event)" #fileInput
+        multiple="true" required>
+
+      </div>
+        
+      </ion-item>
+
+      <div id="itempassword" *ngFor="let selected of pncfileName;let index = index">
+        <ion-row *ngIf="(this.role_id==0 && this.is_pnc==1 && this.currReq.req_status!='Closed')">
+        <ion-label style="margin-right: 2px;">
+          <h6>{{selected}}</h6>
+        </ion-label>
+        <ion-button style="width: min-content; height: min-content;" color="danger" (click)="removeselectedpncFile(index)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-row>
+      </div>
+
+      <ion-item *ngIf="(this.role_id==0 && this.is_pnc==1 && this.currReq.req_status!='Closed')">
+        <ion-label>Supporting Documents:</ion-label>
+      </ion-item>
+
+      <ion-item id="itempassword" *ngIf="(this.role_id==0 && this.is_pnc==1 && this.currReq.req_status!='Closed')">
+
+        <ion-label for="fileUpload">Upload Here</ion-label>
+          <ion-button mat-raised-button (click)="fileInput.click()">Select File</ion-button>
+    
+          <div>
+    
+          <input style="display: none" #attachments type="file" (change)="onPncFileChanged($event)" #fileInput
+            multiple="true">
+    
+          </div>
+            
+          </ion-item>
+    
+          <div id="itempassword" *ngFor="let selected of listOfFiles1;let index = index">
+            <ion-row *ngIf="(this.role_id==0 && this.is_pnc==1 && this.currReq.req_status!='Closed')">
+            <ion-label style="margin-right: 2px;">
+              <h6>{{selected}}</h6>
+            </ion-label>
+            <ion-button style="width: min-content; height: min-content;" color="danger" (click)="removePncSelectedFile(index)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-row>
+          </div>
+
+
+
+      <div class="center"
+      *ngIf="((this.role_id==0 && this.is_pnc==1 && this.currReq.req_status!='Closed'))">
+        <ion-button type="submit"
+          style="--background: rgb(255, 153, 0); width: 40%; margin-top: 20px;"
+          (click) = "PNCform.valid ? onPncSumbit() : null;" 
+          [disabled]="onPncChange()"
+          >Submit PNC</ion-button>
+      </div>
+
+</form>
+
+
+<!-- [disabled]="onPncChange()" -->
+
+<!--PNC END -->
+
+<div class="center"
+*ngIf="(this.role_id !=3 && this.role_id !=4 && this.role_id!=0)">
+    <ion-button
+    style="--background: rgb(95, 179, 17); width: 31%; padding: 0%;"
+    (click)="onApprove()">Accept</ion-button>
+</div>
+
+
+
+</ion-content>
+
+<ion-footer style="padding: 0%; text-align: center; background-color: white;">
+  
+  <div *ngIf="((this.role_id !=3 && this.role_id !=4 && this.role_id!=0) || (is_pnc==0 && this.role_id==0 && this.currReq.req_level==this.currReq.req_initiator_id))">
+  <!-- <ion-button style="--background: rgb(95, 179, 17); width: 31%; padding: 0%;"
+  *ngIf="(this.role_id !=3 && this.role_id !=4 && this.role_id!=0)"
+  (click)="onApprove()">Accept</ion-button> -->
+
+  <ion-button style="--background: rgb(212, 62, 16); width: 31%; padding: 0%;"
+  *ngIf="(this.role_id==0)"
+  (click)="onResend()">Resend</ion-button>
+  
+  <ion-button *ngIf="(this.role_id==0)"
+   style="--background: rgb(255, 153, 0); width: 31%; padding: 0%;"
+   (click)="onSumbitForUpdate()">Sumbit</ion-button>
+
+
+   <ion-button style="--background: rgb(212, 62, 16); width: 31%; padding: 0%;"
+   *ngIf="(this.role_id!=0)"
+   (click)="onResend()">Resend</ion-button>
+
+  </div>
+
+  <div *ngIf="(this.role_id==3 || this.role_id==4)">
+
+    <ion-button style="--background: rgb(212, 62, 16); width: 31%; padding: 0%;"
+      (click)="onResend()">Resend</ion-button>
+
+  </div>
+
+  <div *ngIf="(this.role_id==0 && this.actualCost1!=null && this.currReq.req_status!='Closed')">
+    
+    <ion-button style="--background: rgb(212, 62, 16); width: 31%; padding: 0%;"
+      (click)="onResend()">Resend</ion-button>
+
+  </div>
+
+  <ion-button *ngIf="(this.role_id ==0 && this.currReq.req_status=='Closed')"
+  style="--background: rgb(255, 153, 0); width: 31%; padding: 0%;"
+  (click)="onCompelete()">Complete</ion-button>
+
+</ion-footer>

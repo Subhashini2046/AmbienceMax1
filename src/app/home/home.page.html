@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="card">
+  
+
+    <ion-item id="item" class="bgimg">
+      <ion-label position="floating">UserId</ion-label>
+      <ion-input type="number" name="userId" [(ngModel)] = 'userId' required></ion-input>
+    </ion-item>
+      
+        <ion-text>
+          <small id="emailhelp">We'll never share your email with anyone else.</small>
+        </ion-text>
+
+        <br>
+
+        <ion-item id="itempassword" class="bgimg">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" name="password" [(ngModel)] = 'password' required></ion-input>
+        </ion-item>
+
+
+        <hr style="color: thistle;">
+
+        <div class="center">
+        <ion-button style="--background: rgb(255, 153, 0); width: 40%" id="button_margin" (click)="onLogin()">Login</ion-button>
+      </div>
+    
+  </div>
+
+
+</ion-content>

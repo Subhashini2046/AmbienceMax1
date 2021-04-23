@@ -1,0 +1,161 @@
+
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+<ion-header [translucent]="true">
+  <ion-toolbar class="grad">
+
+    <ion-buttons slot="start" style="color: white;">
+      <ion-menu-button menu="dashboard"></ion-menu-button>
+    </ion-buttons> 
+
+    <ion-title style="color: white; align-items: center;">AmbienceMax</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+
+
+  <!-- <div id="itempassword">
+
+    <ion-card (click)="switchrole_key=1" >
+      <h5 style="text-align: center;">Switch Role</h5>
+    
+  </ion-card>
+      
+    </div> -->
+
+    <!-- <div id="itempassword" *ngIf="switchrole_key">
+
+      <ion-card *ngFor="let i of menus" (click)="navigateToDashboard(i.role,i.space,i.sid,i.name,i.roledesc)">
+
+        <h6 style="text-align: center; size: 15px;">{{getRoleName(i.name,i.roledesc)}}</h6>
+
+      </ion-card>
+
+    </div> -->
+
+
+
+  <div style="margin-top: 10px;" class="row">
+
+    <div class="col" style="width: 50%;">
+
+    <ion-card (click)="topending()" >
+      
+        <h5 style="text-align: center;">Pending - {{ Pending }} </h5>
+    
+  
+    </ion-card>
+
+  </div>
+
+  <div class="col" style="width: 50%;">
+
+    <ion-card (click)="toclose()">
+      
+        <h5 style="text-align: center;">Closed - {{ Closed }} </h5>
+    
+  
+    </ion-card>
+  
+  </div>
+  
+  </div>
+
+  
+
+  <div class="row" *ngIf="this.role_id !== 0">
+
+    <div class="col" style="width: 50%;">
+
+      <ion-card (click)="toopen()" >
+        
+          <h5 style="text-align: center;">Open - {{ Open }} </h5>
+      
+    
+      </ion-card>
+  
+    </div>
+  
+    <div class="col" style="width: 50%;">
+  
+      <ion-card (click)="tocomplete()">
+        
+          <h5 style="text-align: center;">Completed - {{ Complete }} </h5>
+      
+    
+      </ion-card>
+    
+    </div>
+
+    <!-- <ion-card style="height: 50px;" (click)="toopen()" >
+      <h5 style="text-align: center;">
+        Open - {{ Open }}
+      </h5>
+  
+    </ion-card> -->
+  
+  </div>
+
+  <div *ngIf="this.role_id == 0">
+
+    <ion-card style="height: 50px;" (click)="tocomplete()" >
+      <h5 style="text-align: center;">
+        Completed - {{ Complete }}
+      </h5>
+  
+    </ion-card>
+  
+  </div>
+
+  <div>
+
+  <ion-card style="padding: 5px;" >
+
+      <!-- <ion-toolbar>
+        <ion-title size="large">Total Request : {{ All }}</ion-title>
+      </ion-toolbar> -->
+
+      <div class="chart-wrapper" >
+
+        <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+
+      
+
+      </div>
+      
+
+      
+
+  </ion-card>
+
+  <ion-card style="padding: 5px;">
+  <div class="chart-wrapper"  >
+
+      
+            <canvas baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [colors]="chartColors"
+            [chartType]="doughnutChartType">
+          </canvas>
+
+      </div>
+
+    </ion-card>
+
+
+</div>
+
+
+</ion-content>

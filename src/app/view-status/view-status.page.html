@@ -1,0 +1,65 @@
+
+<ion-content [fullscreen]="true">
+
+
+  <ion-list lines="full">
+    
+    <ion-item>
+
+      <ion-col size="3" size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Role Id
+      </ion-col>  
+  
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Designation
+      </ion-col> 
+
+      <ion-col size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Status
+      </ion-col> 
+  
+    </ion-item>
+  
+
+    <ion-item *ngFor="let element of dataSource1; let i = index;">
+
+      <ion-col size="3" size-md="4" size-lg="2" style="font-size: 15px;" *ngIf= "i>=0">
+
+        {{element.id}}
+
+      </ion-col>
+
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 15px;" *ngIf= "i>=0">
+
+        {{element.name}}
+
+      </ion-col>
+
+      <!-- <ion-col *ngIf = "role.role_id >= this.RequestService.viewReq.req_level"> -->
+
+      <ion-col *ngIf = "element.status=='Pending' || element.status=='Closed' " >
+
+        <ion-text  style="background-color:brown; border-radius:5px; color:white; font-size: 15px; padding-left: 5px; padding-right: 5px;">
+          {{element.status}}
+        </ion-text>
+        
+      </ion-col>
+
+
+
+
+      <ion-col *ngIf = "element.status=='Approved' || element.status=='Completed' ">
+
+        <ion-text  style="background-color: green; border-radius:5px; color:white; font-size: 15px; padding-left: 5px; padding-right: 5px;">
+          {{element.status}}
+        </ion-text>
+
+     </ion-col>
+
+
+  </ion-item>
+
+  </ion-list>
+
+
+</ion-content>

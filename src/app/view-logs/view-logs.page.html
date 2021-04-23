@@ -1,0 +1,43 @@
+
+<ion-content [fullscreen]="true">
+
+  <ion-list lines="full">
+
+    <ion-item >
+
+  
+      <ion-col size="5" size-md="4" size-lg="2" style="font-size: 15px; font-weight: bold;">
+       Request Action
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px; font-weight: bold;">
+        Action Taken By
+      </ion-col> 
+
+      <ion-col size-md="4" size-lg="2" style="font-size: 15px; font-weight: bold;">
+        Designation
+      </ion-col>
+
+  </ion-item>
+
+  <ion-item *ngFor="let row of dataSource; let i = index;">
+    
+    <ion-col size="5" size-md="4" size-lg="2" style="font-size: 13px;">
+      {{row.RequestAction}}
+     </ion-col> 
+
+     <ion-col  size-md="4" size-lg="2" style="font-size: 13px;">
+      {{row.RequestRoleName}}
+     </ion-col>
+
+     <ion-col  size-md="4" size-lg="2" style="font-size: 13px;">
+      {{row.roleDescription}}
+     </ion-col>
+
+
+  </ion-item>
+
+
+  </ion-list>
+
+</ion-content>

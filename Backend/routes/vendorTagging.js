@@ -1,0 +1,247 @@
+const date = require('date-and-time');
+
+let express = require("express"),
+  async = require("async"),
+  router = express.Router(),
+  con = require("../mysql_config/config");
+
+
+  router.get("/vendorcategories", (req, res) => {
+    role = req.body.userRole;
+    reqId = req.body.req_id;
+    console.log('role....', role);
+    console.log('reqId......', reqId);
+    sql = `select * from pickrumpvendorcategories;`
+    con.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(JSON.stringify(result));
+      }
+    })
+  });
+
+  router.post("/vendorDetail", (req, res) => {
+    console.log("-----",req.body.vendCategoryId);
+    sql = `select  datarumpvendor.rumpvenVendorPK as vendorId,datarumpvendor.rumpvenName as vendorName, if(count is null,0,count) as taggedCount,if(acount is null,0,acount) as alloccatedCount from datarumpvendor 
+    left join (select vendpk,count(*) as count from (select  rumprequestpk,rumprequesttaggedvendor1 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor1 is not null 
+    union
+    select  rumprequestpk,rumprequesttaggedvendor2 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor2 is not null
+    union
+    select  rumprequestpk,rumprequesttaggedvendor3 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor3 is not null 
+    union
+    select  rumprequestpk,rumprequesttaggedvendor4 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor4 is not null
+    union
+    select  rumprequestpk,rumprequesttaggedvendor5 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor5 is not null
+    union
+    select  rumprequestpk,rumprequesttaggedvendor6 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor6 is not null
+    union
+    select  rumprequestpk,rumprequesttaggedvendor7 as vendpk from datarumprequest 
+    where RUMPRequestAllocatedVendor is null
+    and RUMPRequesttaggedvendor7 is not null)  t1 group by vendpk order by vendpk ) as t2
+    on(t2.vendpk=rumpvenvendorpk)
+    left join (select rumprequestallocatedvendor as vend,count(*) as acount from datarumprequest where rumprequestallocatedvendor is not null
+    and RUMPRequestStatus !='completed'  group by rumprequestallocatedvendor) as t3
+    on(t3.vend=rumpvenvendorpk)
+    where rumpvenvendorpk in(select linkRumpVendorCategoryMapPK from linkrumpvendorcategorymap 
+    where linkRumpVendorCategoryFK=${req.body.vendCategoryId});`
+    con.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(JSON.stringify(result));
+      }
+    })
+  });
+
+
+  
+  router.post("/addVendors", (req, res) => {
+    let vendorList = req.body.vendorList;
+    let accessID= req.body.accessID;
+     console.log('role....', vendorList, vendorList[0]);
+     if (vendorList[0] != null) {
+       venderTagged_1 = vendorList[0];
+     } else
+       venderTagged_1 = null;
+   
+     if (vendorList[1] != null) {
+       venderTagged_2 = vendorList[1];
+     } else
+       venderTagged_2 = null;
+   
+     if (vendorList[2] != null) {
+       venderTagged_3 = vendorList[2];
+     } else
+       venderTagged_3 = null;
+   
+     if (vendorList[3] != null) {
+       venderTagged_4 = vendorList[3];
+     } else
+       venderTagged_4 = null;
+   
+     if (vendorList[4] != null) {
+       venderTagged_5 = vendorList[4];
+     } else
+       venderTagged_5 = null;
+   
+     if (vendorList[5] != null) {
+       venderTagged_6 = vendorList[5];
+     } else
+       venderTagged_6 = null;
+   
+     if (vendorList[6] != null) {
+       venderTagged_7 = vendorList[6];
+     } else
+       venderTagged_7 = null;
+   
+     sql = `select RUMPInitiatorId as initiatorId,RUMPRequestApprovalLevel from datarumprequest where RUMPRequestPK = ${req.body.req_id};`
+   
+     con.query(sql, function (err, result) {
+       if (err) {
+         console.log(err);
+       } else {
+         let approvalLevel=result[0].RUMPRequestApprovalLevel;
+         let initiatorId = result[0].initiatorId;
+         console.log(result);
+         sql=`select distinct RUMPRequestRole from datarumprequestaction 
+         where RUMPRequestRole=? and RUMPRequestFK=?;`
+         con.query(sql,[accessID,req.body.req_id],function(err,result){
+           if (err) {
+             console.log(err);
+           } else {
+         if(result.length>0){
+         sql = `update datarumprequest set RUMPRequestUnreadStatus=1,RUMPRequestTaggedVendor1 = ${venderTagged_1}, 
+         RUMPRequestTaggedVendor2 = ${venderTagged_2}, RUMPRequestTaggedVendor3 = ${venderTagged_3}, 
+         RUMPRequestTaggedVendor4 = ${venderTagged_4}, RUMPRequestTaggedVendor5 = ${venderTagged_5}, RUMPRequestTaggedVendor6 = ${venderTagged_6}, 
+         RUMPRequestTaggedVendor7 = ${venderTagged_7}, RumprequestLevel=${initiatorId},ispnc=1,
+         RUMPRequestApprovalLevel=${approvalLevel} where RUMPRequestPK = '${req.body.req_id}';`
+         }
+         else{
+           sql = `update datarumprequest set RUMPRequestUnreadStatus=1,RUMPRequestTaggedVendor1 = ${venderTagged_1}, 
+           RUMPRequestTaggedVendor2 = ${venderTagged_2}, RUMPRequestTaggedVendor3 = ${venderTagged_3}, 
+           RUMPRequestTaggedVendor4 = ${venderTagged_4}, RUMPRequestTaggedVendor5 = ${venderTagged_5}, RUMPRequestTaggedVendor6 = ${venderTagged_6}, 
+           RUMPRequestTaggedVendor7 = ${venderTagged_7}, RumprequestLevel=${initiatorId},ispnc=1,
+           RUMPRequestApprovalLevel=${accessID} where RUMPRequestPK = '${req.body.req_id}';`
+         }
+         con.query(sql, function (err, result) {
+           if (err) {
+             console.log(err);
+           } else {
+             console.log(result);
+             const now = new Date();
+             let actionTime = date.format(now, 'YYYY-MM-DD HH:mm:ss')
+             sql = `insert into datarumprequestaction (RUMPRequestFK,RUMPRequestRole,RUMPRequestAction,RUMPRequestActionTiming,RUMPRequestComments,RUMPRequestRoleName,RUMPRequestStage) values(${req.body.req_id},${req.body.accessID},'Approved','${actionTime}','${req.body.reqComment}','${req.body.role_name}',1);`
+   
+             con.query(sql, function (err, result) {
+               if (err) {
+                 console.log(err);
+               } else {
+                 console.log(result);
+                 res.send(JSON.stringify({
+                   result: "passed"
+                 }));
+               }
+             })
+           }
+         })
+           }
+         })
+       }
+     })
+    
+  });
+  
+
+
+
+  router.post("/update_venders",(req,res)=>{
+
+    data = req.body;
+    reqId = data.req_id;
+    venderTagged_1 = data.veder_1;
+    venderTagged_2 = data.veder_2;
+    venderTagged_3 = data.veder_3;
+    venderTagged_4 = data.veder_4;
+    venderTagged_5 = data.veder_5;
+    venderTagged_6 = data.veder_6;
+    venderTagged_7 = data.veder_7;
+
+    // reqId = 1125;
+    // venderTagged_1 = 1;
+    // venderTagged_2 = 2;
+    // venderTagged_3 = 3;
+    // venderTagged_4 = 4;
+    // venderTagged_5 = null;
+    // venderTagged_6 = null;
+    // venderTagged_7 = null;
+
+    sql = `update datarumprequest set RUMPRequestTaggedVendor1 = ${venderTagged_1}, RUMPRequestTaggedVendor2 = ${venderTagged_2}, RUMPRequestTaggedVendor3 = ${venderTagged_3}, RUMPRequestTaggedVendor4 = ${venderTagged_4}, RUMPRequestTaggedVendor5 = ${venderTagged_5}, RUMPRequestTaggedVendor6 = ${venderTagged_6}, RUMPRequestTaggedVendor7 = ${venderTagged_7} where RUMPRequestPK = '${reqId}';`
+
+    con.query(sql,function(err,result){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(result);
+      res.send(JSON.stringify({
+        result:"passed"
+      }));
+    }
+  })
+
+
+  });
+
+
+  router.post("/getVendor", (req, res) => {
+    reqId = req.body.req_id;
+    con.query(`select COALESCE(RUMPRequestTaggedVendor1) as vendorId from datarumprequest where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor1 is not null
+    union  
+    select COALESCE(RUMPRequestTaggedVendor2) as vendorId from datarumprequest  where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor2 is not null
+    union  
+    select COALESCE(RUMPRequestTaggedVendor3) as vendorId from datarumprequest  where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor3 is not null
+    union
+    select COALESCE(RUMPRequestTaggedVendor4) as vendorId from datarumprequest  where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor4 is not null
+    union
+    select COALESCE(RUMPRequestTaggedVendor5) as vendorId from datarumprequest  where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor5 is not null
+    union
+    select COALESCE(RUMPRequestTaggedVendor6) as vendorId from datarumprequest  where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor6 is not null
+    union
+    select COALESCE(RUMPRequestTaggedVendor7) as vendorId from datarumprequest  where RUMPRequestPK=${reqId} and RUMPRequestTaggedVendor7 is not null;`,
+       (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
+          console.log(result,"//");
+          let vendorsId=result;
+          let vendorId=result[0].vendorId;
+          console.log(vendorId);
+          con.query(`select pickrumpvendorcategories.* from 
+          linkrumpvendorcategorymap inner join pickrumpvendorcategories 
+          on(pickrumpvendorcategories.pickRumpVendorCategoriesPK=linkrumpvendorcategorymap.linkRumpVendorCategoryFK) 
+          where linkrumpvendorcategorymap.linkRumpVendorFK=${vendorId};`,
+            [vendorId], (err, result) => {
+              if (err) throw err;
+              res.end(JSON.stringify({result:result,
+                vendorsId:vendorsId}))
+            })
+        }
+        // res.end(JSON.stringify(result))
+      });
+  });
+
+
+  module.exports = router;

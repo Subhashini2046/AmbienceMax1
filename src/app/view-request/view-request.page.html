@@ -1,0 +1,449 @@
+
+<ion-content [fullscreen]="true">
+
+  
+  <ion-list lines="full">
+
+    <ion-item >
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        #
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Req Info
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 18px; font-weight: bold;">
+        Data
+      </ion-col> 
+  
+    
+
+  </ion-item>
+
+  <ion-item class="item_background" >
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        1
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request NO.
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ req_no }}
+      </ion-col>      
+
+    
+
+  </ion-item>
+
+  <ion-item>
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        2
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request Type
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ currReq.req_type }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+  <ion-item class="item_background">
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        3
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        ME Type
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ currReq.me_type }}
+      </ion-col>      
+
+    
+
+  </ion-item>
+
+  <ion-item>
+
+   
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        4
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        S/WON No.
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ currReq.req_swon }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+  <ion-item class="item_background">
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        5
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Available Budget
+      </ion-col> 
+
+      <ion-col size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ currReq.available_budget }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+  <ion-item >
+
+   
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        6
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Consumed Budget
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ currReq.consumed_budget }}
+      </ion-col>      
+
+   
+
+  </ion-item>
+
+
+  <ion-item class="item_background">
+
+   
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        7
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Balance Budget
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ currReq.balance_budget }}
+      </ion-col>      
+
+    
+  </ion-item>
+
+  <ion-item>
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        8
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request Subject
+      </ion-col> 
+
+      <ion-col size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ subject }}
+      </ion-col>      
+
+    
+
+  </ion-item>
+
+  <ion-item class="item_background">
+
+    
+
+      <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+        9
+      </ion-col>  
+  
+      <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+        Request Description
+      </ion-col> 
+
+      <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+        {{ description }}
+      </ion-col> 
+
+  </ion-item>
+
+  <ion-item *ngIf="requestComment!=null">
+
+    <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+      10
+    </ion-col>  
+
+    <ion-col style="font-size: 15px;">
+      Support Document
+    </ion-col> 
+
+</ion-item>
+
+<ion-list *ngIf="fileName!=null">
+
+  <ion-item *ngFor="let f1 of fileName,let i=index">
+    <ion-button style="width: fit-content; height: fit-content;" (click)="download(fileName[i])">
+      <ion-icon name="download-outline"></ion-icon>
+    </ion-button>
+    <ion-label> {{fileName[i]}}</ion-label>
+  </ion-item>
+
+</ion-list>
+
+  <ion-item *ngIf="requestComment!=null" class="item_background">
+
+    <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+      11
+    </ion-col>  
+
+    <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+      Last Approved Comment
+    </ion-col> 
+
+    <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+      {{ requestComment }}
+    </ion-col> 
+
+</ion-item>
+
+
+  <ion-item *ngIf="boqDescription!=null">
+
+    <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+      12
+    </ion-col>  
+
+    <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+      BOQ Description
+    </ion-col> 
+
+    <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+      {{ boqDescription }}
+    </ion-col> 
+
+</ion-item>
+
+
+<ion-item *ngIf="boqEstimatedCost!=null" class="item_background">
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    13
+  </ion-col>  
+
+  <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+    BOQ Estimated Cost
+  </ion-col> 
+
+  <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+    {{ boqEstimatedCost }}
+  </ion-col> 
+
+</ion-item>
+
+
+<ion-item *ngIf="boqEstimatedTime!=null">
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    14
+  </ion-col>  
+
+  <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+    BOQ Estimated Time
+  </ion-col> 
+
+  <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+    {{ boqEstimatedTime }}
+  </ion-col> 
+
+</ion-item>
+
+
+<ion-item *ngIf="BoqfileName!=null" class="item_background">
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    15
+  </ion-col>  
+
+  <ion-col style="font-size: 15px;">
+    Supporting Document BOQ
+  </ion-col>  
+
+</ion-item>
+
+<ion-list *ngIf="BoqfileName!=null" class="item_background">
+
+  <ion-item *ngFor="let f1 of BoqfileName,let i=index">
+    <ion-button style="width: fit-content; height: fit-content;" (click)="download(BoqfileName[i])">
+      <ion-icon name="download-outline"></ion-icon>
+    </ion-button>
+    <ion-label> {{BoqfileName[i]}}</ion-label>
+  </ion-item>
+
+</ion-list>
+
+<ion-item *ngIf="actualCost!=null">
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    16
+  </ion-col>  
+
+  <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+    Actual Cost
+  </ion-col> 
+
+  <ion-col  size-md="4" size-lg="2" style="font-size: 15px;">
+    {{ actualCost }}
+  </ion-col> 
+
+</ion-item>
+
+
+<ion-item *ngIf="actualCost!=null" class="item_background">
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    17
+  </ion-col>  
+
+  <ion-col size="4" size-md="4" size-lg="2" style="font-size: 15px;">
+    Allocated Vendor
+  </ion-col> 
+
+</ion-item>
+
+<!-- <ion-item *ngIf="actualCost!=null" class="item_background"> -->
+
+  <ion-row *ngIf="selectedSpoc>0">
+
+    <ion-col style="font-size: 15px; text-align: center; width: 30%; color: black;">
+      Vender Name
+    </ion-col>
+
+    <ion-col style="font-size: 15px; text-align: center; width: 15%; color: black;">
+      Spoc 1
+    </ion-col>
+
+    <ion-col style="font-size: 15px; text-align: center; width: 15%; color: black;">
+      Spoc 2
+    </ion-col>
+
+    <ion-col style="font-size: 15px; text-align: center; width: 15%; color: black;">
+      Spoc 3
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row *ngFor="let element of dataSource; let i = index" >
+
+    <ion-col *ngIf="selectedSpoc>0 && element.rumpvenVendorPK==this.RequestAllocatedVendor" style="font-size: 15px; width: 30%; text-align: center; color: black;">
+      {{ element.venName }}
+    </ion-col>
+
+    <ion-col *ngIf="selectedSpoc>0 && element.rumpvenVendorPK==this.RequestAllocatedVendor" style="font-size: 15px; width: 15%; text-align: center; color: black;">
+      {{ element.venSpoc1 }}
+    </ion-col>
+
+    <ion-col *ngIf="selectedSpoc>0 && element.rumpvenVendorPK==this.RequestAllocatedVendor" style="font-size: 15px; width: 15%; text-align: center; color: black;">
+      {{ element.venSpoc2 }}
+    </ion-col>
+
+    <ion-col *ngIf="selectedSpoc>0 && element.rumpvenVendorPK==this.RequestAllocatedVendor" style="font-size: 15px; width: 15%; text-align: center; color: black;">
+      {{ element.venSpoc3 }}
+    </ion-col>
+
+  </ion-row>
+
+<!-- </ion-item> -->
+
+<ion-item *ngIf="reqPnc!=null" >
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    18
+  </ion-col>  
+
+  <ion-col style="font-size: 15px;">
+    PNC Document
+  </ion-col> 
+
+</ion-item>
+
+
+<ion-item *ngIf="reqPnc!=null" class="item_background">
+
+  <ion-button (click)="downloadFile(reqPnc)">
+    <ion-icon name="download-outline"></ion-icon>
+  </ion-button>
+  <label> {{reqPnc}}</label>
+
+</ion-item>
+
+<ion-item *ngIf="pncSupportingDoc!=null" class="item_background">
+
+  <ion-col size="1" size-md="4" size-lg="2" style="font-size: 15px;">
+    19
+  </ion-col>  
+
+  <ion-col style="font-size: 15px;">
+    PNC Support Document
+  </ion-col> 
+
+</ion-item>
+
+<ion-list *ngIf="pncSupportingDoc!=null" class="item_background">
+
+  <ion-item *ngFor="let f1 of pncSupportingDoc,let i=index">
+    <ion-button style="width: fit-content; height: fit-content;" (click)="download(pncSupportingDoc[i])">
+      <ion-icon name="download-outline"></ion-icon>
+    </ion-button>
+    <ion-label> {{pncSupportingDoc[i]}}</ion-label>
+  </ion-item>
+
+</ion-list>
+
+
+    
+  </ion-list>
+
+
+  <div class="center" *ngIf="currReq.req_status=='Completed'">
+    <ion-button type="submit"
+      style="--background: rgb(255, 153, 0); width: 40%; margin-top: 20px;"
+      (click)=ExportPDF() 
+      >Download Pdf</ion-button>
+  </div>
+
+</ion-content>
