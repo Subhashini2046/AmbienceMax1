@@ -36,7 +36,7 @@ export class ViewRequestPage implements OnInit {
   };
 
   requestDetails: any[] = [];
-
+tableData=[];
   req_no;
   description = "";
   subject = "";
@@ -187,7 +187,13 @@ export class ViewRequestPage implements OnInit {
   }
   ExportPDF() {
     this.UserDataService.getpdfTableData(this.req_id).subscribe((res: any) => {
-      this.pdfTableData = res;
+      for(let i=0;i<res.length;i++){
+        if(res[i]!=null){
+          this.pdfTableData.push(res[i]);
+        }
+      }
+     // this.pdfTableData = res;
+console.log(this.pdfTableData);
       // const doc = new jsPDF('p', 'pt', 'a4');
       let reqNum = this.req_no.indexOf('Form');
       console.log(reqNum, 'reqNum');
@@ -270,7 +276,7 @@ export class ViewRequestPage implements OnInit {
       }
       var dd = {
         pageOrientation: 'portrait', margin: [0, 0, 0, 10], defaultStyle: { pdfFonts: 'Times' },
-        content: [
+        content: [{text:"Request Details",margin: [190, 0, 30, 15],fontSize:15},
           {
             styles:
             {
@@ -288,12 +294,13 @@ export class ViewRequestPage implements OnInit {
               hLineWidth: function (i, node) {
                 return (i === 0 || i === node.table.body.length) ? 1 : 1;
               },
-              fillColor: function (i) {
+              fillColor: function (i,node) {
                 if (i == 0) return '#48C9B0';
-                if (i == 9) return '#48C9B0';
-                if (i == 14) return '#48C9B0';
-                if (i == 16) return '#48C9B0';
-                if (i == 19) return '#48C9B0';
+                if (node.table.body[i][0].text== " ") return '#48C9B0';
+                // if (i == 9) return '#48C9B0';
+                // if (i == 14) return '#48C9B0';
+                // if (i == 16) return '#48C9B0';
+                // if (i == 19) return '#48C9B0';
               },
               fontStyle: function (i) {
                 if (i == 0) return 'bold';
@@ -315,7 +322,7 @@ export class ViewRequestPage implements OnInit {
             , pageBreak: 'after',
 
 
-          },
+          },{text:"Request Workflow",margin: [190, 5, 30, 15],fontSize:15},
           {
             style: 'tableExample',
             table: {
@@ -340,10 +347,10 @@ export class ViewRequestPage implements OnInit {
               vLineColor: function (i, node) {
                 return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
               },
-              paddingLeft: (i, node) => 2,
-              paddingRight: (i, node) => 2,
-              paddingTop: (i, node) => 3,
-              paddingBottom: (i, node) => 3
+              paddingLeft: (i, node) => 4,
+              paddingRight: (i, node) => 4,
+              paddingTop: (i, node) => 5,
+              paddingBottom: (i, node) => 5
             }
           },
         ]
@@ -359,6 +366,7 @@ export class ViewRequestPage implements OnInit {
 
           // Save the PDF to the data Directory of our App
           this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
+            console.log("this.file.dataDirectory",this.file.dataDirectory);
             // Open the PDf with the correct OS tools
             //this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
           })

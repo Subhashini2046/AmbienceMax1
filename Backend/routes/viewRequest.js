@@ -188,7 +188,8 @@ router.post("/pdfTableData", (req, res) => {
   let req_id = req.body.req_id;
   let tableData=[];
   let tableData1=[];
-  let tableData2=[]
+  let tableData2=[];
+  
    sql1 = `select  RUMPRequestRoleName user, RUMPRequestRole as role, RUMPRequestAction as action ,
    RUMPRequestActionTiming as actionTiming,RUMPRequestComments as comment,
    (select pickRUMPRoleDescription from pickrumprole where pickRUMPRolePK=linkrumpadminaccess.linkRUMPRoleFK) as role1,
@@ -244,7 +245,9 @@ router.post("/pdfTableData", (req, res) => {
        console.log(err);
      }
      else {if(result>0){
-      tableData2.push(result[0]);}
+      tableData2.push(result[0]);
+    }
+      console.log(tableData2);
      res.send(tableData2);
      }
    })
