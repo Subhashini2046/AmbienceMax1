@@ -1,3 +1,4 @@
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -20,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import  {File, IWriteOptions} from '@ionic-native/file/ngx';
 import  {FileOpener}  from '@ionic-native/file-opener/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { Downloader } from '@ionic-native/downloader/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +45,9 @@ import  {FileOpener}  from '@ionic-native/file-opener/ngx';
     SplashScreen,
     FileOpener,
     File,
+    LocalNotifications,
+    FileTransfer,
+    Downloader,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide:'AMBI_API_URL',useValue:environment.url}
   ],

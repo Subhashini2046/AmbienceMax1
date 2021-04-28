@@ -6,6 +6,10 @@ import * as FileSaver from 'file-saver';
 import { File, IWriteOptions } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Platform } from '@ionic/angular';
+import { FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { Downloader } from '@ionic-native/downloader/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -36,7 +40,7 @@ export class ViewRequestPage implements OnInit {
   };
 
   requestDetails: any[] = [];
-tableData=[];
+  tableData = [];
   req_no;
   description = "";
   subject = "";
@@ -66,7 +70,8 @@ tableData=[];
   public selectedSpoc;
   pdfTableData: any[] = [];
   pdfObj = null;
-  constructor(public RequestService: RequestService, public UserDataService: UserDataService, private file: File,
+  fileName1='';
+  constructor(private transfer: FileTransfer, private localNotifications: LocalNotifications, public RequestService: RequestService, public UserDataService: UserDataService, private file: File,
     private fileOpener: FileOpener, private plt: Platform) {
     // this.view = RequestService.viewReq;
     this.req_id = RequestService.ReqId;
@@ -186,14 +191,15 @@ tableData=[];
     return NumberOfspace;
   }
   ExportPDF() {
+    this.pdfTableData = [];
     this.UserDataService.getpdfTableData(this.req_id).subscribe((res: any) => {
-      for(let i=0;i<res.length;i++){
-        if(res[i]!=null){
+      for (let i = 0; i < res.length; i++) {
+        if (res[i] != null) {
           this.pdfTableData.push(res[i]);
         }
       }
-     // this.pdfTableData = res;
-console.log(this.pdfTableData);
+      // this.pdfTableData = res;
+      console.log(this.pdfTableData);
       // const doc = new jsPDF('p', 'pt', 'a4');
       let reqNum = this.req_no.indexOf('Form');
       console.log(reqNum, 'reqNum');
@@ -276,100 +282,127 @@ console.log(this.pdfTableData);
       }
       var dd = {
         pageOrientation: 'portrait', margin: [0, 0, 0, 10], defaultStyle: { pdfFonts: 'Times' },
-        content: [{text:"Request Details",margin: [190, 0, 30, 15],fontSize:15},
+        content: [{ text: "Request Details", margin: [190, 0, 30, 15], fontSize: 15 },
+        {
+          styles:
           {
-            styles:
-            {
-              margin: [0, 30, 30, 15],
-            },
-
-            headerRows: 1,
-            table: {
-              widths: ['auto'],
-              fillColor: '#eeeeee',
-              body: data2
-
-            },
-            layout: {
-              hLineWidth: function (i, node) {
-                return (i === 0 || i === node.table.body.length) ? 1 : 1;
-              },
-              fillColor: function (i,node) {
-                if (i == 0) return '#48C9B0';
-                if (node.table.body[i][0].text== " ") return '#48C9B0';
-                // if (i == 9) return '#48C9B0';
-                // if (i == 14) return '#48C9B0';
-                // if (i == 16) return '#48C9B0';
-                // if (i == 19) return '#48C9B0';
-              },
-              fontStyle: function (i) {
-                if (i == 0) return 'bold';
-              },
-              vLineWidth: function (i, node) {
-                return (i === 0 || i === node.table.widths.length) ? 1 : 1;
-              },
-              hLineColor: function (i, node) {
-                return (i === 0 || i === node.table.body.length) ? 'gray' : 'gray';
-              },
-              vLineColor: function (i, node) {
-                return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
-              },
-              paddingLeft: (i, node) => 2,
-              paddingRight: (i, node) => 2,
-              paddingTop: (i, node) => 3,
-              paddingBottom: (i, node) => 3
-            }
-            , pageBreak: 'after',
-
-
-          },{text:"Request Workflow",margin: [190, 5, 30, 15],fontSize:15},
-          {
-            style: 'tableExample',
-            table: {
-              body: data1
-            },
-            layout: {
-              hLineWidth: function (i, node) {
-                return (i === 0 || i === node.table.body.length) ? 1 : 1;
-              },
-              fillColor: function (i) {
-                if (i == 0) return '#48C9B0';
-              },
-              fontStyle: function (i) {
-                if (i == 0) return 'bold';
-              },
-              vLineWidth: function (i, node) {
-                return (i === 0 || i === node.table.widths.length) ? 1 : 1;
-              },
-              hLineColor: function (i, node) {
-                return (i === 0 || i === node.table.body.length) ? 'gray' : 'gray';
-              },
-              vLineColor: function (i, node) {
-                return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
-              },
-              paddingLeft: (i, node) => 4,
-              paddingRight: (i, node) => 4,
-              paddingTop: (i, node) => 5,
-              paddingBottom: (i, node) => 5
-            }
+            margin: [0, 30, 30, 15],
           },
+
+          headerRows: 1,
+          table: {
+            widths: ['auto'],
+            fillColor: '#eeeeee',
+            body: data2
+
+          },
+          layout: {
+            hLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 1 : 1;
+            },
+            fillColor: function (i, node) {
+              if (i == 0) return '#48C9B0';
+              if (node.table.body[i][0].text == " ") return '#48C9B0';
+              // if (i == 9) return '#48C9B0';
+              // if (i == 14) return '#48C9B0';
+              // if (i == 16) return '#48C9B0';
+              // if (i == 19) return '#48C9B0';
+            },
+            fontStyle: function (i) {
+              if (i == 0) return 'bold';
+            },
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 1;
+            },
+            hLineColor: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 'gray' : 'gray';
+            },
+            vLineColor: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
+            },
+            paddingLeft: (i, node) => 2,
+            paddingRight: (i, node) => 2,
+            paddingTop: (i, node) => 3,
+            paddingBottom: (i, node) => 3
+          }
+          , pageBreak: 'after',
+
+
+        }, { text: "Request Workflow", margin: [190, 5, 30, 15], fontSize: 15 },
+        {
+          style: 'tableExample',
+          table: {
+            body: data1
+          },
+          layout: {
+            hLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 1 : 1;
+            },
+            fillColor: function (i) {
+              if (i == 0) return '#48C9B0';
+            },
+            fontStyle: function (i) {
+              if (i == 0) return 'bold';
+            },
+            vLineWidth: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 1 : 1;
+            },
+            hLineColor: function (i, node) {
+              return (i === 0 || i === node.table.body.length) ? 'gray' : 'gray';
+            },
+            vLineColor: function (i, node) {
+              return (i === 0 || i === node.table.widths.length) ? 'gray' : 'gray';
+            },
+            paddingLeft: (i, node) => 4,
+            paddingRight: (i, node) => 4,
+            paddingTop: (i, node) => 5,
+            paddingBottom: (i, node) => 5
+          }
+        },
         ]
       }
 
       this.pdfObj = pdfMake.createPdf(dd);
       // this.pdfObj = pdfMake.createPdf(dd2);
+      let self = this;
       console.log(this.pdfObj);
+      this.fileName1='AmbienceMax_Form_' + this.req_id + '.pdf';;
       const fileName = 'AmbienceMax_Form_' + this.req_id + '.pdf';
       if (this.plt.is('cordova')) {
         this.pdfObj.getBuffer((buffer) => {
-          var blob = new Blob([buffer], { type: 'application/pdf' });
-
+          var utf8 = new Uint8Array(buffer);
+          var binarArray = utf8.buffer;
+          var blob = new Blob([binarArray], { type: 'application/pdf' });
+          this.downloadFromBlob(blob);
           // Save the PDF to the data Directory of our App
-          this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
-            console.log("this.file.dataDirectory",this.file.dataDirectory);
-            // Open the PDf with the correct OS tools
-            //this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
-          })
+          // this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
+          //   console.log("dataDirectory", this.file.dataDirectory);
+          //   console.log("fileEntry", fileEntry);
+          //  const fileTransfer: FileTransferObject = this.transfer.create();
+          //  const reader = new FileReader();
+          //  console.log("file Transfer",fileTransfer);
+          //  console.log("reader",reader);
+          //   console.log("external",this.file.externalApplicationStorageDirectory);
+          //   console.log("blob",blob);
+          //   console.log("blobb",blob.toString());
+          //   // reader.onloadend = (evt => {
+          //   //   console.log(this.file.externalApplicationStorageDirectory);
+          //     fileTransfer.download(blob.toString(), this.file.externalApplicationStorageDirectory + "Download/" + fileName).then((entry) => {
+          //       // Open the PDf with the correct OS tools
+          //       this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf').then(() => {
+          //         console.log('opened');
+          //         this.localNotifications.schedule({
+          //           title: 'File Downloaded',
+          //           foreground: true
+          //         })
+          //       })
+          //         .catch(e => console.log('Error ' + e));
+          //     }, err => {
+          //       console.log('download error: ');
+          //       console.log(err);
+          //     });
+          //   });
+         // })
         });
       } else {
         // On a browser simply use download!
@@ -380,6 +413,35 @@ console.log(this.pdfTableData);
 
 
     return false;
+  }
+
+  downloadFromBlob(image) {
+    console.log(image.type);
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    console.log("reader", fileTransfer)
+    const reader = new FileReader();
+    console.log("reader", reader)
+    
+    reader.onloadend = (evt => {
+      console.log( this.file.externalApplicationStorageDirectory);
+      fileTransfer.download(reader.result.toString(), this.file.externalApplicationStorageDirectory+"Download/" + this.fileName1).then((entry) => {
+          console.log(entry.toURL());
+          console.log(image.type);
+          this.fileOpener.open(entry.toURL(), image.type)
+            .then(() => {
+              console.log('opened');
+              this.localNotifications.schedule({
+                title: 'File Downloaded',
+                foreground: true
+              })
+            })
+            .catch(e => console.log('Error ' + e));
+      }, err => {
+        console.log('download error: ');
+        console.log(err);
+      });
+    });
+    reader.readAsDataURL(image);
   }
   // download pdf of request form
 
